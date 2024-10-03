@@ -26,7 +26,7 @@ public class UserController {
 
         var uri = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(new DataListUser(user));
+        return ResponseEntity.created(uri).body(new DataCreateUser(user));
     }
 
     @GetMapping
