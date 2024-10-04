@@ -75,7 +75,7 @@ public class Document {
         this.author = author;
     }
 
-    public void updateDocument(DataUpdateDocument data, User author) {
+    public void updateDocument(DataUpdateDocument data) {
         if (data.title() != null) {
             this.title = data.title();
         }

@@ -47,11 +47,8 @@ public class DocumentController {
     @PutMapping
     @Transactional
     public ResponseEntity update(@RequestBody @Valid DataUpdateDocument data) {
-        var author = userRepository.findById(data.authorId())
-                .orElseThrow(() -> new IllegalArgumentException("Author not found"));
-
         var document = documentRepository.getReferenceById(data.id());
-        document.updateDocument(data, author);
+        document.updateDocument(data);
 
         return ResponseEntity.ok(new DataUpdateDocument(document));
     }
