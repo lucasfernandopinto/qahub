@@ -6,9 +6,18 @@ public record DataListDocument(
         Long id,
         String title,
         String content,
-        Date date
+        Date date,
+        Long authorId, // ID do autor
+        String authorName // Nome do autor
 ) {
     public DataListDocument(Document doc){
-        this(doc.getId(), doc.getTitle(), doc.getContent(), doc.getDate());
+        this(
+                doc.getId(),
+                doc.getTitle(),
+                doc.getContent(),
+                doc.getDate(),
+                doc.getAuthor().getId(), // Pega o ID do autor
+                doc.getAuthor().getName() // Pega o nome do autor
+        );
     }
 }

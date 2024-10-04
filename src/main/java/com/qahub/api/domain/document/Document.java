@@ -1,5 +1,6 @@
 package com.qahub.api.domain.document;
 
+import com.qahub.api.domain.user.User; // Assumindo que a classe User está no pacote user
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -15,16 +16,23 @@ import java.util.Date;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Document {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
     private String content;
     private Date date;
 
-    public Document(DataCreateDocument data){
+    @ManyToOne
+    @JoinColumn(name = "author_id") // Relacionamento com a tabela de usuários
+    private User author; // Novo campo autor
+
+    public Document(DataCreateDocument data, User author){
         this.title = data.title();
         this.content = data.content();
         this.date = data.date();
+        this.author = author; // Setando o autor
     }
 
     public Long getId() {
@@ -59,7 +67,15 @@ public class Document {
         this.date = date;
     }
 
-    public void updateDocument(DataUpdateDocument data) {
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public void updateDocument(DataUpdateDocument data, User author) {
         if (data.title() != null) {
             this.title = data.title();
         }
@@ -69,6 +85,8 @@ public class Document {
         if (data.date() != null) {
             this.date = data.date();
         }
-
+        if (author != null) {
+            this.author = author;
+        }
     }
 }

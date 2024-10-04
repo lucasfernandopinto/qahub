@@ -14,7 +14,9 @@ public record DataUpdateDocument(
         String content,
         @NotNull
         @DateTimeFormat
-        Date date
+        Date date,
+        @NotNull
+        Long authorId // Campo para o ID do autor
 )
 {
     public DataUpdateDocument(Document document) {
@@ -22,7 +24,8 @@ public record DataUpdateDocument(
                 document.getId(),
                 document.getTitle(),
                 document.getContent(),
-                document.getDate()
+                document.getDate(),
+                document.getAuthor().getId() // Pega o ID do autor
         );
     }
 }

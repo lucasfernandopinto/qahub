@@ -1,6 +1,7 @@
 package com.qahub.api.controller;
 
 import com.qahub.api.domain.document.*;
+import com.qahub.api.domain.user.UserRepository; // Importa o repositório de usuários
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,10 +19,18 @@ public class DocumentController {
     @Autowired
     private DocumentRepository documentRepository;
 
+    @Autowired
+    private UserRepository userRepository; // Autowired para o UserRepository
+
     @PostMapping
     @Transactional
     public ResponseEntity create(@RequestBody @Valid DataCreateDocument data, UriComponentsBuilder uriBuilder) {
-        var document = new Document(data);
+        // Busca o autor (usuário) pelo ID antes de criar o documento
+        var author = userRepository.findById(data.authorId())
+                .orElseThrow(() -> new IllegalArgumentException("Author not found"));
+
+        // Cria o documento associando o autor
+        var document = new Document(data, author);
         documentRepository.save(document);
 
         var uri = uriBuilder.path("/documents/{id}").buildAndExpand(document.getId()).toUri();
@@ -38,8 +47,11 @@ public class DocumentController {
     @PutMapping
     @Transactional
     public ResponseEntity update(@RequestBody @Valid DataUpdateDocument data) {
+        var author = userRepository.findById(data.authorId())
+                .orElseThrow(() -> new IllegalArgumentException("Author not found"));
+
         var document = documentRepository.getReferenceById(data.id());
-        document.updateDocument(data);
+        document.updateDocument(data, author);
 
         return ResponseEntity.ok(new DataUpdateDocument(document));
     }

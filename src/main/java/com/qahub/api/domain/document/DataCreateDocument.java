@@ -12,8 +12,9 @@ public record DataCreateDocument(
         String content,
         @NotNull
         @DateTimeFormat
-        Date date
+        Date date,
+        @NotNull
+        Long authorId
 )
 {
-
 }
