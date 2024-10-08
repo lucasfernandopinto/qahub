@@ -1,10 +1,14 @@
 package com.qahub.api.domain.user;
 
+import com.qahub.api.domain.team.Team;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "user")
 @Entity(name = "User")
@@ -15,12 +19,22 @@ import lombok.NoArgsConstructor;
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String email;
     private String password;
     private Boolean active;
+
     @Enumerated(EnumType.STRING)
     private Type type;
+
+    @ManyToMany // Define o relacionamento muitos-para-muitos
+    @JoinTable(
+            name = "user_team", // Tabela de junção
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id")
+    )
+    private Set<Team> teams = new HashSet<>(); // Use HashSet para evitar duplicados
 
     public User(DataCreateUser data){
         this.name = data.name();
@@ -28,6 +42,24 @@ public class User {
         this.password = data.password();
         this.active = true;
         this.type = data.type();
+    }
+
+    public void updateUser(DataUpdateUser data) {
+        if (data.name() != null) {
+            this.name = data.name();
+        }
+        if (data.email() != null) {
+            this.email = data.email();
+        }
+        if (data.password() != null) {
+            this.password = data.password();
+        }
+        if (data.active() != null) {
+            this.active = data.active();
+        }
+        if (data.type() != null) {
+            this.type = data.type();
+        }
     }
 
     public Long getId() {
@@ -78,24 +110,11 @@ public class User {
         this.type = type;
     }
 
-    public void updateUser(DataUpdateUser data) {
-        if (data.name() != null) {
-            this.name = data.name();
-        }
-        if (data.email() != null) {
-            this.email = data.email();
-        }
-        if (data.password() != null) {
-            this.password = data.password();
-        }
+    public Set<Team> getTeams() {
+        return teams;
+    }
 
-        if (data.active() != null) {
-            this.active = data.active();
-        }
-
-        if (data.type() != null) {
-            this.type = data.type();
-        }
-
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
     }
 }

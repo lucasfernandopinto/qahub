@@ -1,5 +1,7 @@
 package com.qahub.api.controller;
 
+import com.qahub.api.domain.team.Team;
+import com.qahub.api.domain.team.TeamRepository;
 import com.qahub.api.domain.user.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("users")
 public class UserController {
@@ -18,15 +23,20 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private TeamRepository teamRepository;
+
     @PostMapping
     @Transactional
     public ResponseEntity create(@RequestBody @Valid DataCreateUser data, UriComponentsBuilder uriBuilder) {
+        List<Team> teams = teamRepository.findAllById(data.teamIds()); // Recupera os times pelo ID
         var user = new User(data);
+        user.getTeams().addAll(teams); // Associa os times ao usuário
+
         userRepository.save(user);
 
         var uri = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
-
-        return ResponseEntity.created(uri).body(new DataCreateUser(user));
+        return ResponseEntity.created(uri).body(new DataListUser(user));
     }
 
     @GetMapping
@@ -40,6 +50,11 @@ public class UserController {
     public ResponseEntity update(@RequestBody @Valid DataUpdateUser data) {
         var user = userRepository.getReferenceById(data.id());
         user.updateUser(data);
+
+        // Atualizar a lista de times associados
+        List<Team> teams = teamRepository.findAllById(data.teamIds());
+        user.getTeams().clear(); // Limpa os times atuais
+        user.getTeams().addAll(teams); // Adiciona os novos times
 
         return ResponseEntity.ok(new DataUpdateUser(user));
     }
@@ -55,5 +70,4 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
 }

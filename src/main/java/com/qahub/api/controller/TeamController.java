@@ -1,6 +1,8 @@
 package com.qahub.api.controller;
 
 import com.qahub.api.domain.team.*;
+import com.qahub.api.domain.user.User;
+import com.qahub.api.domain.user.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,12 +13,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("teams")
 public class TeamController {
 
     @Autowired
     private TeamRepository teamRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @PostMapping
     @Transactional
@@ -29,6 +36,7 @@ public class TeamController {
         return ResponseEntity.created(uri).body(new DataListTeam(team));
     }
 
+
     @GetMapping
     public ResponseEntity<Page<DataListTeam>> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
         var page = teamRepository.findAll(pagination).map(DataListTeam::new);
@@ -40,6 +48,11 @@ public class TeamController {
     public ResponseEntity update(@RequestBody @Valid DataUpdateTeam data) {
         var team = teamRepository.getReferenceById(data.id());
         team.updateTeam(data);
+
+        // Atualizar a lista de usuários associados
+        List<User> users = userRepository.findAllById(data.userIds());
+        team.getUsers().clear(); // Limpa os usuários atuais
+        team.getUsers().addAll(users); // Adiciona os novos usuários
 
         return ResponseEntity.ok(new DataUpdateTeam(team));
     }
@@ -55,5 +68,4 @@ public class TeamController {
             return ResponseEntity.notFound().build();
         }
     }
-
 }
