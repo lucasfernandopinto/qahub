@@ -1,0 +1,21 @@
+<h2>List of Automations</h2>
+<table>
+  <tr>
+    <th>Pipeline</th>
+    <th>Result</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let automation of automations">
+    <td>{{ automation.pipeline }}</td>
+    <td>{{ automation.result }}</td>
+    <td>{{ automation.startDate | date }}</td>
+    <td>{{ automation.endDate | date }}</td>
+    <td>
+      <a [routerLink]="['edit', automation.id]">Edit</a>
+      <button (click)="deleteAutomation(automation.id!)">Delete</button>
+    </td>
+  </tr>
+</table>
+<a routerLink="create">Add New Automation</a>

@@ -1,0 +1,18 @@
+<div *ngIf="tasks.length > 0; else noTasks">
+    <h3>Lista de Tarefas</h3>
+    <ul>
+      <li *ngFor="let task of tasks">
+        <h4>{{ task.title }}</h4>
+        <p>{{ task.description }}</p>
+        <p>Status: {{ task.status }}</p>
+        <p>Prioridade: {{ task.priority }}</p>
+        <p>Data de Início: {{ task.startDate | date:'short' }}</p>
+        <p>Data de Fim: {{ task.endDate | date:'short' }}</p>
+      </li>
+    </ul>
+  </div>
+  
+  <ng-template #noTasks>
+    <p>Nenhuma tarefa encontrada.</p>
+  </ng-template>
+  

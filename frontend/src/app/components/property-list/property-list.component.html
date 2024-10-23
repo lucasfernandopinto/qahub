@@ -1,0 +1,6 @@
+<h2>Property List</h2>
+<ul>
+  <li *ngFor="let property of properties">
+    {{ property.name }} - Available: {{ property.available ? 'Yes' : 'No' }} - {{ property.obs }}
+  </li>
+</ul>

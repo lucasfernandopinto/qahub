@@ -8,8 +8,8 @@ public record DataListUser(
         String name,
         String email,
         Boolean active,
-        Type type,
-        List<DataListTeam> teams // Lista de times aos quais o usuário pertence
+        Type type
+       // List<DataListTeam> teams // Lista de times aos quais o usuário pertence
 ) {
     public DataListUser(User user) {
         this(
@@ -17,8 +17,8 @@ public record DataListUser(
                 user.getName(),
                 user.getEmail(),
                 user.getActive(),
-                user.getType(),
-                user.getTeams().stream().map(DataListTeam::new).toList() // Mapear times para DataListTeam
+                user.getType()
+               // user.getTeams().stream().map(DataListTeam::new).toList() // Mapear times para DataListTeam
         );
     }
 }

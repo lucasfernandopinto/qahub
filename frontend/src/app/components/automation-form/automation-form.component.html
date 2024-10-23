@@ -1,0 +1,16 @@
+<h2>{{ isEditMode ? 'Edit' : 'Create' }} Automation</h2>
+<form (ngSubmit)="saveAutomation()">
+  <label>Pipeline</label>
+  <input [(ngModel)]="automation.pipeline" name="pipeline" required />
+  
+  <label>Result</label>
+  <input [(ngModel)]="automation.result" name="result" required />
+
+  <label>Start Date</label>
+  <input [(ngModel)]="automation.startDate" name="startDate" type="date" required />
+
+  <label>End Date</label>
+  <input [(ngModel)]="automation.endDate" name="endDate" type="date" required />
+
+  <button type="submit">Save</button>
+</form>

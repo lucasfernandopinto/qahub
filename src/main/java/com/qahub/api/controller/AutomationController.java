@@ -18,7 +18,7 @@ public class AutomationController {
     @Autowired
     private AutomationRepository automationRepository;
 
-    @PostMapping
+    @PostMapping("create")
     @Transactional
     public ResponseEntity create(@RequestBody @Valid DataCreateAutomation data, UriComponentsBuilder uriBuilder) {
         var automation = new Automation(data);

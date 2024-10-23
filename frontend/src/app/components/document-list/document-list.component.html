@@ -1,0 +1,7 @@
+<h2>Document List</h2>
+<ul>
+    <li *ngFor="let document of documents">
+      <strong>{{ document.title }}</strong> - {{ document.authorName }} - {{ document.date | date }}<br>
+      {{ document.content }}
+    </li>
+  </ul>
