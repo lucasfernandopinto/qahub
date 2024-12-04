@@ -1,0 +1,116 @@
+<html>
+  <head><base href="." /><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QAHub - Automação</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="../home/home.html" class="nav-brand">QAHub</a>
+      <div class="nav-links">
+        <a href="../tasks/tasks.html" class="nav-link">Tarefas</a>
+        <a href="../users/users.html" class="nav-link">Usuários</a>
+        <a href="../teams/teams.html" class="nav-link">Times</a>
+        <a href="../automations/automations.html" class="nav-link active">Automação</a>
+        <a href="../documentations/documentations.html" class="nav-link">Documentação</a>
+        <a href="../integrations/integrations.html" class="nav-link">Integrações</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="tasks-container">
+    <div class="tasks-header">
+      <h1>Automação</h1>
+      <button class="add-task-btn" onclick="openModal('add')">
+        <i class="fas fa-plus"></i> Nova Automação
+      </button>
+    </div>
+
+    <div class="filters-container">
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar automação..." id="searchAutomation">
+      </div>
+      <select id="statusFilter">
+        <option value="">Status</option>
+        <option value="success">Sucesso</option>
+        <option value="failure">Falha</option>
+      </select>
+    </div>
+
+    <table class="tasks-table">
+      <thead>
+        <tr>
+          <th>Nome do Pipeline</th>
+          <th>Status</th>
+          <th>Data de Início</th>
+          <th>Data de Fim</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="automationTableBody">
+        <!-- Automations will be dynamically inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add/Edit Automation Modal -->
+  <div class="modal" id="automationModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Nova Automação</h2>
+        <button class="close-modal" onclick="closeModal()">&times;</button>
+      </div>
+      <form id="automationForm">
+        <div class="form-group">
+          <label for="pipelineName">Nome do Pipeline</label>
+          <input type="text" id="pipelineName" required>
+        </div>
+        <div class="form-group">
+          <label for="pipelineDescription">Descrição</label>
+          <textarea id="pipelineDescription" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="startDate">Data de Início</label>
+          <input type="datetime-local" id="startDate" required>
+        </div>
+        <div class="form-group">
+          <label for="endDate">Data de Fim</label>
+          <input type="datetime-local" id="endDate" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="add-task-btn" style="background-color: var(--gray);" onclick="closeModal()">Cancelar</button>
+          <button type="submit" class="add-task-btn">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- View Details Modal -->
+  <div class="modal" id="detailsModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Detalhes da Automação</h2>
+        <button class="close-modal" onclick="closeDetailsModal()">&times;</button>
+      </div>
+      <div class="automation-details">
+        <div class="logs-section">
+          <h3>Logs</h3>
+          <pre id="pipelineLogs" class="logs-container"></pre>
+        </div>
+        <div class="related-tasks">
+          <h3>Tarefas Relacionadas</h3>
+          <div id="relatedTasksList"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="add-task-btn" onclick="closeDetailsModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js">
+
+  </script>
+</body></html>

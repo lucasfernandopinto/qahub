@@ -1,0 +1,107 @@
+<html><head><base href="." /><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>QAHub - Gerenciamento de Times</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="../home/home.html" class="nav-brand">QAHub</a>
+      <div class="nav-links">
+        <a href="../tasks/tasks.html" class="nav-link">Tarefas</a>
+        <a href="../users/users.html" class="nav-link">Usuários</a>
+        <a href="../teams/teams.html" class="nav-link active">Times</a>
+        <a href="../automations/automations.html" class="nav-link">Automação</a>
+        <a href="../documentations/documentations.html" class="nav-link">Documentação</a>
+        <a href="../integrations/integrations.html" class="nav-link">Integrações</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="tasks-container">
+    <div class="tasks-header">
+      <h1>Times</h1>
+      <button class="add-task-btn" onclick="openModal('add')">
+        <i class="fas fa-plus"></i> Novo Time
+      </button>
+    </div>
+
+    <div class="filters-container">
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar time..." id="searchTeam">
+      </div>
+    </div>
+
+    <table class="tasks-table">
+      <thead>
+        <tr>
+          <th>Nome do Time</th>
+          <th>Descrição</th>
+          <th>Membros</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="teamsTableBody">
+        <!-- Teams will be dynamically inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add new team modal -->
+  <div class="modal" id="teamModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Novo Time</h2>
+        <button class="close-modal" onclick="closeModal()">&times;</button>
+      </div>
+      <form id="teamForm">
+        <div class="form-group">
+          <label for="teamName">Nome do Time</label>
+          <input type="text" id="teamName" required>
+        </div>
+        <div class="form-group">
+          <label for="teamDescription">Descrição</label>
+          <textarea id="teamDescription" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Membros do Time</label>
+          <div id="teamMembers" class="team-members-container">
+            <!-- Members will be dynamically added here -->
+          </div>
+          <button type="button" class="add-task-btn" onclick="openMemberSelection()" style="margin-top: 10px;">
+            <i class="fas fa-user-plus"></i> Adicionar Membro
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="add-task-btn" style="background-color: var(--gray);" onclick="closeModal()">Cancelar</button>
+          <button type="submit" class="add-task-btn">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add member selection modal -->
+  <div class="modal" id="memberSelectionModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Adicionar Membros</h2>
+        <button class="close-modal" onclick="closeMemberSelection()">&times;</button>
+      </div>
+      <div class="member-selection-container">
+        <div class="search-bar" style="margin-bottom: 1rem;">
+          <input type="text" placeholder="Buscar usuário..." id="searchMember">
+        </div>
+        <div id="availableMembers" class="available-members">
+          <!-- Available members will be listed here -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="add-task-btn" onclick="closeMemberSelection()">Concluído</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js">
+
+  </script>
+</body></html>

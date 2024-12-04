@@ -1,0 +1,113 @@
+<html><head><base href="." /><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>QAHub - Documentação</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="../home/home.html" class="nav-brand">QAHub</a>
+      <div class="nav-links">
+        <a href="../tasks/tasks.html" class="nav-link">Tarefas</a>
+        <a href="../users/users.html" class="nav-link">Usuários</a>
+        <a href="../teams/teams.html" class="nav-link">Times</a>
+        <a href="../automations/automations.html" class="nav-link ">Automação</a>
+        <a href="../documentations/documentations.html" class="nav-link active">Documentação</a>
+        <a href="../integrations/integrations.html" class="nav-link">Integrações</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="tasks-container">
+    <div class="tasks-header">
+      <h1>Documentação</h1>
+      <button class="upload-btn" onclick="openDocModal('add')">
+        <i class="fas fa-plus"></i> Novo Documento
+      </button>
+    </div>
+
+    <div class="filters-container">
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar documentos..." id="searchDocs">
+      </div>
+      <select id="categoryFilter">
+        <option value="">Categoria</option>
+        <option value="guide">Guia</option>
+        <option value="manual">Manual</option>
+        <option value="api">Documentação API</option>
+      </select>
+    </div>
+
+    <table class="tasks-table">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Categoria</th>
+          <th>Autor</th>
+          <th>Data de Criação</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="docsTableBody">
+        <!-- Documents will be dynamically inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add/Edit Document Modal -->
+  <div class="modal" id="documentModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Novo Documento</h2>
+        <button class="close-modal" onclick="closeDocModal()">&times;</button>
+      </div>
+      <form id="documentForm">
+        <div class="form-group">
+          <label for="docTitle">Título</label>
+          <input type="text" id="docTitle" required>
+        </div>
+        <div class="form-group">
+          <label for="docCategory">Categoria</label>
+          <select id="docCategory" required>
+            <option value="guide">Guia</option>
+            <option value="manual">Manual</option>
+            <option value="api">Documentação API</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="docContent">Conteúdo</label>
+          <textarea id="docContent" required></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="upload-btn" style="background-color: var(--gray);" onclick="closeDocModal()">Cancelar</button>
+          <button type="submit" class="upload-btn">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- View Document Modal -->
+  <div class="modal" id="viewDocModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="viewDocTitle"></h2>
+        <button class="close-modal" onclick="closeViewDocModal()">&times;</button>
+      </div>
+      <div class="document-content">
+        <div id="docMetadata">
+          <span id="docAuthor"></span> • 
+          <span id="docDate"></span>
+          <span id="docCategoryBadge" class="document-category"></span>
+        </div>
+        <div id="docPreview" class="document-preview"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="upload-btn" onclick="closeViewDocModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js">
+ 
+  </script>
+</body></html>

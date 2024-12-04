@@ -1,0 +1,116 @@
+<html><head><base href="." /><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>QAHub - Integrações</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="../home/home.html" class="nav-brand">QAHub</a>
+      <div class="nav-links">
+        <a href="../tasks/tasks.html" class="nav-link">Tarefas</a>
+        <a href="../users/users.html" class="nav-link">Usuários</a>
+        <a href="../teams/teams.html" class="nav-link">Times</a>
+        <a href="../automations/automations.html" class="nav-link">Automação</a>
+        <a href="../documentations/documentations.html" class="nav-link">Documentação</a>
+        <a href="../integrations/integrations.html" class="nav-link active">Integrações</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="tasks-container">
+    <div class="tasks-header">
+      <h1>Integrações</h1>
+    </div>
+
+    <div class="integrations-grid">
+      <!-- Jira Integration Card -->
+      <div class="integration-card">
+        <div class="integration-header">
+          <img src="https://cdn.worldvectorlogo.com/logos/jira-1.svg" alt="Jira Logo" class="integration-logo">
+          <div class="integration-status">
+            <label class="switch">
+              <input type="checkbox" onchange="toggleIntegration('jira', this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+        <h3>Jira</h3>
+        <p>Integre com o Jira para sincronização de tasks e workflows.</p>
+        <button class="config-btn" onclick="openIntegrationModal('jira')">
+          <i class="fas fa-cog"></i> Configurar
+        </button>
+      </div>
+
+      <!-- GitLab Integration Card -->
+      <div class="integration-card">
+        <div class="integration-header">
+          <img src="https://about.gitlab.com/images/press/logo/svg/gitlab-icon-rgb.svg" alt="GitLab Logo" class="integration-logo">
+          <div class="integration-status">
+            <label class="switch">
+              <input type="checkbox" onchange="toggleIntegration('gitlab', this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+        <h3>GitLab</h3>
+        <p>Conecte-se ao GitLab para gerenciar repositories e CI/CD.</p>
+        <button class="config-btn" onclick="openIntegrationModal('gitlab')">
+          <i class="fas fa-cog"></i> Configurar
+        </button>
+      </div>
+
+      <!-- Jenkins Integration Card -->
+      <div class="integration-card">
+        <div class="integration-header">
+          <img src="https://www.jenkins.io/images/logos/jenkins/jenkins.svg" alt="Jenkins Logo" class="integration-logo">
+          <div class="integration-status">
+            <label class="switch">
+              <input type="checkbox" onchange="toggleIntegration('jenkins', this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+        <h3>Jenkins</h3>
+        <p>Integre com Jenkins para automação e pipeline de builds.</p>
+        <button class="config-btn" onclick="openIntegrationModal('jenkins')">
+          <i class="fas fa-cog"></i> Configurar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Integration Configuration Modal -->
+  <div class="modal" id="integrationModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="integrationModalTitle">Configurar Integração</h2>
+        <button class="close-modal" onclick="closeIntegrationModal()">&times;</button>
+      </div>
+      <form id="integrationForm">
+        <div class="form-group">
+          <label for="apiKey">API Key</label>
+          <input type="password" id="apiKey" required>
+        </div>
+        <div class="form-group">
+          <label for="apiEndpoint">API Endpoint</label>
+          <input type="url" id="apiEndpoint" required>
+        </div>
+        <div class="form-group">
+          <label for="webhookUrl">Webhook URL</label>
+          <input type="url" id="webhookUrl">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="upload-btn" onclick="testConnection()">
+            <i class="fas fa-plug"></i> Testar Conexão
+          </button>
+          <button type="submit" class="upload-btn">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js">
+
+  </script>
+</body></html>
